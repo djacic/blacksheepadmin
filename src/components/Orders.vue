@@ -118,7 +118,7 @@
                     statusId : status_id
                 }
                 $.ajax({
-                    url: window.base_url+'/orders/'+id,
+                    url: window.base_url+'/orders/'+this.orderPodaci.id,
                     type: 'PATCH',
                     dataType: "json",
                     data: data,
