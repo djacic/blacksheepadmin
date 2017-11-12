@@ -75,7 +75,7 @@
           <td v-if='orderPodaci.clicked'>{{orderPodaci.user.postNumber}}</td>
           </tr>
           <tr>
-          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' v-if='orderPodaci.cancel.length==0' @click='posalji(2)'>Posalji</button><button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-info' @click='posalji(2)'>Potvrdi sa izmenama</button><button class='btn btn-danger' v-if='orderPodaci.cancel.length==0' @click='obrisi'>Obrisi</button></td>
+          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' @click='posalji(2)'>Potvrdi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button></td>
           </tr>
           </tbody></table>
           </div>
@@ -103,16 +103,7 @@
             posalji: function(i) {
                 this.resetHolders();
                 var data = {
-                    id: this.orderPodaci.id,
-                    firstName: this.orderPodaci.user.firstName,
-                    lastName: this.orderPodaci.user.lastName,
-                    products: this.orderPodaci.products,
-                    price: this.orderPodaci.price,
-                    created_at: this.orderPodaci.created_at,
-                    address: this.orderPodaci.user.address,
-                    tel: this.orderPodaci.user.tel,
-                    city: this.orderPodaci.user.city,
-                    zipcode: this.orderPodaci.user.postNumber
+                    removedItems: this.orderPodaci.cancel
                 }
                 console.log(data);
                 switch (i) {
@@ -125,8 +116,8 @@
                     default:
                 }
                 $.ajax({
-                    url: window.base_url+'/orders',
-                    type: 'POST',
+                    url: window.base_url+'/orders/'+id,
+                    type: 'PATCH',
                     dataType: "json",
                     data: data,
                     success: function(data) {
@@ -138,23 +129,7 @@
                     }
                 });
             },
-            obrisi: function() {
-                var id = this.orderPodaci.id;
-                this.resetHolders();
-                $.ajax({
-                    url: window.base_url+'/orders',
-                    type: 'DELETE',
-                    dataType: "json",
-                    data: id,
-                    success: function(data) {
-                        $('#feedback').html('Uspešno izvršeno!');
-                        console.log(data);
-                    },
-                    error: function(xhr, status, error) {
-                        $("#err").html("Dogodila se greska, poslat je [id] : " + id).removeClass('nev');
-                    }
-                });
-            },
+
             openPanel: function(id) {
               console.log(this.orderPodaci.user);
                 this.resetHolders();
