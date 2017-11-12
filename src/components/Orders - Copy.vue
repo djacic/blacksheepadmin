@@ -75,7 +75,7 @@
           <td v-if='orderPodaci.clicked'>{{orderPodaci.user.postNumber}}</td>
           </tr>
           <tr>
-          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' @click='posalji(2)'>Potvrdi</button>&nbsp;<button class='btn btn-danger' @click='posalji(3)'>Otkazi</button></td>
+          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' @click='posalji(2)'>Potvrdi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button></td>
           </tr>
           </tbody></table>
           </div>
@@ -90,6 +90,7 @@
     // import '../js/ajax.js'
     export default {
         data: function() {
+            console.log(window.poklon);
             return {
                 orderBazaPodaci: orderDbData,
                 orderPodaci: orderData
@@ -101,6 +102,8 @@
             },
             posalji: function(i) {
                 this.resetHolders();
+
+                console.log(data);
                 switch (i) {
                     case 2:
                         var status_id = 2;
@@ -114,7 +117,6 @@
                     removedItems: this.orderPodaci.cancel,
                     statusId : status_id
                 }
-                console.log(data);
                 $.ajax({
                     url: window.base_url+'/orders/'+this.orderPodaci.id,
                     type: 'PATCH',
@@ -122,6 +124,7 @@
                     data: data,
                     success: function(data) {
                         $('#feedback').html('Uspešno izvršeno!');
+                        console.log(data);
                     },
                     error: function(xhr, status, error) {
                         $("#err").html("Dogodila se greska").removeClass('nev');
@@ -130,7 +133,7 @@
             },
 
             openPanel: function(id) {
-
+              console.log(this.orderPodaci.user);
                 this.resetHolders();
                 this.orderPodaci.clicked = true;
                 for (var i = 0; i < this.orderBazaPodaci.length; i++) {
