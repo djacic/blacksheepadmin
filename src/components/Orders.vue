@@ -102,9 +102,7 @@
             },
             posalji: function(i) {
                 this.resetHolders();
-                var data = {
-                    removedItems: this.orderPodaci.cancel
-                }
+
                 console.log(data);
                 switch (i) {
                     case 2:
@@ -114,6 +112,10 @@
                         var status_id = 3;
                         break;
                     default:
+                }
+                var data = {
+                    removedItems: this.orderPodaci.cancel,
+                    statusId : status_id
                 }
                 $.ajax({
                     url: window.base_url+'/orders/'+id,
