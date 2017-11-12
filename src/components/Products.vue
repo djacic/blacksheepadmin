@@ -269,22 +269,27 @@ switchToInsert: function(){
               this.forma.id = x;
                 this.forma.isInsert = false;
                 this.forma.bojanJe = false;
+                for (var n = 0; n < this.forma.dbcolors.length; n++) {
+                    this.forma.dbcolors[n].checked = false;
+                  }
                 for (var i = 0; i < sviPodaci.products.length; i++) {
                     if (sviPodaci.products[i]['id'] == x) {
                         this.forma.id = sviPodaci.products[i]['id'];
                         this.forma.name = sviPodaci.products[i]['name'];
                         this.forma.description = sviPodaci.products[i]['description'];
                         sviPodaci.products[i]['is_offer'] == 1 ? this.forma.is_offer = 1 : this.forma.is_offer = 0;
-                        this.forma.price = sviPodaci.products[i]['prices'][0].price; 
+                        this.forma.price = sviPodaci.products[i]['prices'][0].price;
                         if (sviPodaci.products[i]['colors'].length > 0) {
 
                             this.forma.bojanJe = true;
 
-                            for (var j = 0; j < sviPodaci.products[i]['colors'].length; j++) {
-                                this.forma.dbcolors[j].checked = false;
-                                    if (this.forma.dbcolors[j]['id']==sviPodaci.products[i]['colors'][j]['id']  ) {
-                                        this.forma.dbcolors[j]['checked'] = true;
-                                    }
+                            for (var j = 0; j < this.forma.dbcolors.length; j++) {
+                                for(var k = 0; k<sviPodaci.products[i]['colors'].length;k++){
+                                  if (sviPodaci.products[i]['colors'][k]['id'] == this.forma.dbcolors[j]['id'] ) {
+                                      this.forma.dbcolors[j]['checked'] = true;
+                                  }
+                                }
+
 
                             }
 
