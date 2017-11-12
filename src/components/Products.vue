@@ -224,7 +224,7 @@ switchToInsert: function(){
                       var files = fileSelect.files;
                       var formData = new FormData();
                       var file = files[0];
-                        formData.append('photo[]', file, file.name);
+                        formData.append('photo', file, file.name);
                         this.unos.picture = formData;
                         console.log(this.unos.picture);
                     }
@@ -358,7 +358,7 @@ switchToInsert: function(){
                       var files = fileSelect.files;
                       var formData = new FormData();
                       var file = files[0];
-                        formData.append('photo[]', file, file.name);
+                        formData.append('photo', file, file.name);
                         this.unos.picture = formData;
                         console.log(this.unos.picture);
                     }
