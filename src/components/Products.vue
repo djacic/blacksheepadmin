@@ -225,8 +225,7 @@ switchToInsert: function(){
                       var formData = new FormData();
                       var file = files[0];
                         formData.append('photo[]', file, file.name);
-                        this.unos.picture.file = formData;
-                        this.unos.picture.alt = this.forma.name;
+                        this.unos.picture = formData;
                         console.log(this.unos.picture);
                     }
                     this.unos.brand_id = this.forma.brand_id;
@@ -360,8 +359,7 @@ switchToInsert: function(){
                       var formData = new FormData();
                       var file = files[0];
                         formData.append('photo[]', file, file.name);
-                        this.unos.picture.file = formData;
-                        this.unos.picture.alt = this.forma.name;
+                        this.unos.picture = formData;
                         console.log(this.unos.picture);
                     }
                   this.unos.brand_id = this.forma.brand_id;
@@ -402,6 +400,7 @@ switchToInsert: function(){
                         type_id : this.unos.type_id,
                         colors : this.unos.checked,
                         description: this.unos.description,
+                        picture: this.unos.picture,
                         is_active: this.unos.is_active,
                         is_offer: this.unos.is_offer,
                         name: this.unos.name,
@@ -487,11 +486,7 @@ preRemove: function(x) {
                 id: null,
                 name: null
             }],
-            picture: [{
-                id: 1,
-                file: 'http://en.ict.edu.rs/files/image/osoblje_skole/!markoDJ.jpg',
-                alt: 'slicica'
-            }],
+            picture: [],
             type: [{
                 id: null,
                 name: null
@@ -523,11 +518,7 @@ preRemove: function(x) {
             id: 1,
             name: 'brend'
         }],
-        picture: [{
-            id: 1,
-            file: 'p4.jpg',
-            alt: 'slika'
-        }],
+        picture: [],
         type: [{
             id: 1,
             name: 'tip'
@@ -582,10 +573,7 @@ preRemove: function(x) {
         brand_id: 0,
         picture_id: 0,
         type_id: 0,
-        picture: [{
-            file: 'p4.jpg',
-            alt: 'slika'
-        }],
+        picture: [],
         price: 23,
         colors: [{
             id: 1
@@ -605,10 +593,7 @@ preRemove: function(x) {
       brand_id: 0,
       picture_id: 0,
       type_id: 0,
-      picture: [{
-          file: 'p4.jpg',
-          alt: 'slika'
-      }],
+      picture: [],
       price: 123,
       colors: [{
           id: 1
