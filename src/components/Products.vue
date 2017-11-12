@@ -1,7 +1,7 @@
 <template>
   <div>
         <div class='col-md-12 title'>Admin - Proizvodi</div>
-  <div class='col-md-6'>
+  <div class='col-md-6 pull-left'>
     <div class='form-group col-md-6'><select v-model='forma.filterCategory' class='form-control'><option value=''>Izaberite kategoriju...</option><option v-for='cat in forma.categories' :value='cat.id'>{{ cat.name }}</option></select></div>
     <div class='form-group col-md-5'><input type='text' class='form-control' v-model='forma.searchQuery'/></div><div class='col-md-1'><button @click='searchForItem(forma.searchQuery)' class='btn btn-primary btn-xs'><i class='fa fa-search fa-2x'></i></button></div>
     <table class='table table-hover table-condensed'>
@@ -23,7 +23,7 @@
       </tbody>
     </table>
   </div>
-  <div class='col-md-6'>
+  <div class='col-md-6 pull-left'>
       <hr>
     <h5>Unos proizvoda</h5>
     <table class='table table-striped'>
@@ -48,7 +48,7 @@
       </tr>
       <tr>
         <td><label for='picture'>Slika:</label></td>
-        <td><input class='form-control' type='file' name='file' id='file'/></td>
+        <td><input class='form-control' type='file' name='photo' id='file'/></td>
       </tr>
       <tr>
         <td><label for='color'>Boja?</label></td>
@@ -201,6 +201,13 @@ switchToInsert: function(){
                         this.errors.push('Izaberite bar jednu boju!');
                     }
                 }
+                if (document.getElementById('file').files.length != 0) {
+                  var fileSelect = document.getElementById('file').files[0];
+                  if (!fileSelect.type.match('image.*')) {
+                    this.errors.push('Fajl mora biti slika');
+                }
+
+                }
                 /* BOJE */
                 this.hasErrors = this.errors.length > 0;
                 if (!this.hasErrors) {
@@ -209,12 +216,18 @@ switchToInsert: function(){
                     this.unos.is_active = 1; //Postaje aktivan
                     if (this.forma.is_offer) this.unos.is_offer = 1;
                     this.unos.price = this.forma.price;
-                    var fileInput = document.getElementById('file');
-                    if (fileInput.files.length == 0) {
+
+                    if (document.getElementById('file').files.length == 0) {
                       this.unos.picture=null;
                     } else {
-                        this.unos.picture.file = fileInput.files[0]['name'];
+                      var fileSelect = document.getElementById('file');
+                      var files = fileSelect.files;
+                      var formData = new FormData();
+                      var file = files[0];
+                        formData.append('photo[]', file, file.name);
+                        this.unos.picture.file = formData;
                         this.unos.picture.alt = this.forma.name;
+                        console.log(this.unos.picture);
                     }
                     this.unos.brand_id = this.forma.brand_id;
                     if (this.forma.special) this.unos.special = 1;
@@ -233,6 +246,7 @@ switchToInsert: function(){
                       price: this.unos.price,
                       special: this.unos.special
                     }
+
 
                     // ajax
                     $.ajax({
@@ -293,6 +307,8 @@ switchToInsert: function(){
 
                             }
 
+                        }else{
+                          this.forma.bojanJe = false;
                         }
                         this.forma.brand_id = sviPodaci.products[i]['brand_id'];
                         this.forma.type_id = sviPodaci.products[i]['type_id'];
@@ -319,8 +335,14 @@ switchToInsert: function(){
               }
               for (var i = 0; i < this.forma.dbcolors.length; i++) {
                   if (this.forma.dbcolors[i].checked) {
-                      this.unos.checked.push(this.forma.dbcolors[i].id);
+                      this.forma.checked.push(this.forma.dbcolors[i].id);
                   }
+              }
+			  if (document.getElementById('file').files.length != 0) {
+                  var fileSelect = document.getElementById('file').files[0];
+                  if (!fileSelect.type.match('image.*')) {
+                    this.errors.push('Fajl mora biti slika');
+                }
               }
               this.hasErrors = this.errors.length > 0;
               if (!this.hasErrors) {
@@ -330,12 +352,18 @@ switchToInsert: function(){
                   if (this.forma.is_offer) this.unos.is_offer = 1;
                   this.unos.price = this.forma.price;
                   var fileInput = document.getElementById('file');
-                  if (fileInput.files.length == 0) {
-                    this.unos.picture = null;
-                  } else {
-                      this.unos.picture[0].file = fileInput.files[0]['name'];
-                      this.unos.picture[0].alt = this.forma.name;
-                  }
+                  if (document.getElementById('file').files.length == 0) {
+                      this.unos.picture=null;
+                    } else {
+                      var fileSelect = document.getElementById('file');
+                      var files = fileSelect.files;
+                      var formData = new FormData();
+                      var file = files[0];
+                        formData.append('photo[]', file, file.name);
+                        this.unos.picture.file = formData;
+                        this.unos.picture.alt = this.forma.name;
+                        console.log(this.unos.picture);
+                    }
                   this.unos.brand_id = this.forma.brand_id;
                   if (this.forma.special) this.unos.special = 1;
                   if (this.forma.type_id != 0) this.unos.type_id = this.forma.type_id;

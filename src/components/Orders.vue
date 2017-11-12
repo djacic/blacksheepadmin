@@ -1,13 +1,13 @@
 <template lang="html">
   <div>
         <div class='col-md-12 title'>Admin - Porudžbine</div>
-  <div class='container'>
+
     <div class='col-md-2' style='font-size:15px; padding-top:5px'>Filter:</div>
     <div class='col-md-5' style='margin-bottom:15px'><select class=' form-control' v-model='orderPodaci.filter' v-on:change='reset'><option v-bind:value='1'>Neobradjene</option><option v-bind:value='2'>Poslate</option><option v-bind:value='3'>Odbijene</option></select></div>
     <div class='col-md-5' style='padding-top:5px'>Ukupno porudzbina: {{orderBazaPodaci.length}}</div>
-  </div>
-          <div class='container'>
-          <div class='col-md-3'>
+
+
+          <div class='col-md-3 pull-left'>
           <table class='table table-bordered table-hover'><tbody>
           <tr>
             <th>ID</th>
@@ -24,7 +24,7 @@
           </tbody>
         </table>
       </div>
-          <div class='col-md-9' v-if='orderPodaci.clicked'>
+          <div class='col-md-9 pull-left' v-if='orderPodaci.clicked'>
           <table class='table table-bordered'><tbody>
           <tr>
           <td>ID</td>
@@ -79,10 +79,10 @@
           </tr>
           </tbody></table>
           </div>
-          <div class='col-md-9' v-else></div>
+          <div class='col-md-9 pull-left' v-else></div>
           <div id='feedback' class='alert alert-success nev'></div>
           <div id='err' class='alert alert-danger nev'></div>
-          </div>
+
           </div>
 
 </template>
