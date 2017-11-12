@@ -218,7 +218,16 @@ switchToInsert: function(){
                     this.unos.price = this.forma.price;
 
                     if (document.getElementById('file').files.length == 0) {
-                      this.unos.picture=null;
+                      formData.append('picture', null);
+                      formData.append('brand_id', this.unos.brand_id);
+                      formData.append('type_id', this.unos.type_id);
+                      formData.append('colors', this.unos.checked);
+                      formData.append('description', this.unos.description);
+                      formData.append('is_active', this.unos.is_active);
+                      formData.append('is_offer', this.unos.is_offer);
+                      formData.append('name', this.unos.name);
+                      formData.append('price', this.unos.price);
+                      formData.append('special', this.unos.special);
                     } else {
                       var fileSelect = document.getElementById('file');
                       var files = fileSelect.files;
@@ -232,11 +241,10 @@ switchToInsert: function(){
                         formData.append('is_active', this.unos.is_active);
                         formData.append('is_offer', this.unos.is_offer);
                         formData.append('name', this.unos.name);
-                        formData.append('picture', this.unos.picture);
                         formData.append('price', this.unos.price);
                         formData.append('special', this.unos.special);
 
-                        console.log(this.unos.picture);
+
                     }
                     this.unos.brand_id = this.forma.brand_id;
                     if (this.forma.special) this.unos.special = 1;
@@ -255,7 +263,6 @@ switchToInsert: function(){
                       price: this.unos.price,
                       special: this.unos.special
                     }
-                    console.log(formData);
 
                     // ajax
                     $.ajax({
