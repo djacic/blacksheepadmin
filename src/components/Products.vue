@@ -227,7 +227,7 @@ switchToInsert: function(){
                         formData.append('picture', file);
                         formData.append('brand_id', this.unos.brand_id);
                         formData.append('type_id', this.unos.type_id);
-                        formData.append('checked', this.unos.checked);
+                        formData.append('colors', this.unos.checked);
                         formData.append('description', this.unos.description);
                         formData.append('is_active', this.unos.is_active);
                         formData.append('is_offer', this.unos.is_offer);
