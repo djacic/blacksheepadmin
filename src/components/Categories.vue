@@ -174,6 +174,12 @@
               if(this.errors.length==0){
                 izmenaPodataka.id = formData.id;
                 izmenaPodataka.name = formData.name;
+                var data = {
+                  brands: formData.checked,
+                  name : izmenaPodataka.name,
+                  type : 'category'
+                }
+                console.log(data);
                 $.ajax({
                     url: window.base_url+'/categories/'+izmenaPodataka.id,
                     type: 'PATCH',
