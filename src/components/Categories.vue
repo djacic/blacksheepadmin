@@ -126,7 +126,7 @@
 
                     },
                     error: function(xhr, status, error) {
-                        $("#err").html("Greska u dohvatanju podataka iz baze!");
+
                     }
                 });
             },
@@ -191,12 +191,16 @@
                     },
                     success: function(data) {},
                     error: function(xhr, status, error) {
-                                            $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su: [očekivani tip], [id]: "+izmenaPodataka.id+" i [name]: "+izmenaPodataka.name).removeClass('nev');
+
                     }
                 });
               }
                 this.dohvati()
                 this.dohvati()
+                this.dohvati()
+                this.dohvatiBrend()
+                this.dohvatiBrend()
+                this.dohvatiBrend()
                 this.formReset()
             },
             newOne: function() {
@@ -205,7 +209,6 @@
                 this.errors = [];
                 var reName = /^[A-Z]{1}[A-z,-\s0-9]{1,20}$/;
                 if (!reName.test(this.forma.name)) this.errors.push("Ime kategorije nije u dobrom formatu!");
-                if(this.forma.checked.length == 0) this.errors.push("Brend je obavezan");
                 if(this.errors.length==0){
                   var data = {
                     name : this.forma.name,
