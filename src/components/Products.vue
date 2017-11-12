@@ -1,4 +1,4 @@
-<template>
+picture<template>
   <div>
         <div class='col-md-12 title'>Admin - Proizvodi</div>
   <div class='col-md-6 pull-left'>
@@ -48,7 +48,7 @@
       </tr>
       <tr>
         <td><label for='picture'>Slika:</label></td>
-        <td><input class='form-control' type='file' name='photo' id='file'/></td>
+        <td><input class='form-control' type='file' name='picture' id='file'/></td>
       </tr>
       <tr>
         <td><label for='color'>Boja?</label></td>
@@ -224,8 +224,18 @@ switchToInsert: function(){
                       var files = fileSelect.files;
                       var formData = new FormData();
                       var file = files[0];
-                        formData.append('photo', file, file.name);
-                        this.unos.picture = formData;
+                        formData.append('picture', file);
+                        formData.append('brand_id', this.unos.brand_id);
+                        formData.append('type_id', this.unos.type_id);
+                        formData.append('checked', this.unos.checked);
+                        formData.append('description', this.unos.description);
+                        formData.append('is_active', this.unos.is_active);
+                        formData.append('is_offer', this.unos.is_offer);
+                        formData.append('name', this.unos.name);
+                        formData.append('picture', this.unos.picture);
+                        formData.append('price', this.unos.price);
+                        formData.append('special', this.unos.special);
+
                         console.log(this.unos.picture);
                     }
                     this.unos.brand_id = this.forma.brand_id;
@@ -245,14 +255,14 @@ switchToInsert: function(){
                       price: this.unos.price,
                       special: this.unos.special
                     }
-
+                    console.log(formData);
 
                     // ajax
                     $.ajax({
                         url: window.base_url+'/products',
                         type: 'POST',
                         dataType: "json",
-                        data: insertData,
+                        data: formData,
                         contentType: false,
                         cache: false,
                         processData:false,
@@ -400,7 +410,7 @@ switchToInsert: function(){
                       dataType: "json",
                       contentType: false,
                       cache: false,
-                      processData:false,  
+                      processData:false,
                       data: {
                         brand_id : this.unos.brand_id,
                         type_id : this.unos.type_id,
