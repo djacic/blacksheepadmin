@@ -253,6 +253,9 @@ switchToInsert: function(){
                         type: 'POST',
                         dataType: "json",
                         data: insertData,
+                        contentType: false,
+                        cache: false,
+                        processData:false,
                         success: function(data) {
                             $("#feedback").html("Proizvod je uspešno unet!");
                         },
@@ -395,6 +398,9 @@ switchToInsert: function(){
                       url: window.base_url+'/products/'+this.unos.id,
                       type: 'PATCH',
                       dataType: "json",
+                      contentType: false,
+                      cache: false,
+                      processData:false,  
                       data: {
                         brand_id : this.unos.brand_id,
                         type_id : this.unos.type_id,
