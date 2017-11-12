@@ -319,7 +319,7 @@ switchToInsert: function(){
               }
               for (var i = 0; i < this.forma.dbcolors.length; i++) {
                   if (this.forma.dbcolors[i].checked) {
-                      this.forma.checked.push(this.forma.dbcolors[i].id);
+                      this.unos.checked.push(this.forma.dbcolors[i].id);
                   }
               }
               this.hasErrors = this.errors.length > 0;
@@ -352,18 +352,19 @@ switchToInsert: function(){
                   //   price: this.unos.price,
                   //   special: this.unos.special
                   // }
-                  var data = {
-                    brand_id : this.unos.brand_id,
-                    type_id : this.unos.type_id,
-                    colors : this.unos.checked,
-                    description: this.unos.description,
-                    is_active: this.unos.is_active,
-                    is_offer: this.unos.is_offer,
-                    name: this.unos.name,
-                    price: this.unos.price,
-                    special: this.unos.special
-                  }
-                  console.log(data);
+                  // var data = {
+                  //   brand_id : this.unos.brand_id,
+                  //   type_id : this.unos.type_id,
+                  //   colors : this.unos.checked,
+                  //   description: this.unos.description,
+                  //   is_active: this.unos.is_active,
+                  //   is_offer: this.unos.is_offer,
+                  //   name: this.unos.name,
+                  //   price: this.unos.price,
+                  //   special: this.unos.special
+                  // }
+                  // console.log(data);
+                  console.log(this.unos.checked);
                   $.ajax({
                       url: window.base_url+'/products/'+this.unos.id,
                       type: 'PATCH',
