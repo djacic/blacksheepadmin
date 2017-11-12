@@ -124,13 +124,15 @@
                         $('#feedback').html('Uspešno izvršeno!');
                     },
                     error: function(xhr, status, error) {
-                        $("#err").html("Dogodila se greska").removeClass('nev');
+                        $("#err").html("Dogodila se greska"+xhr.status).removeClass('nev');
                     }
                 });
+                this.dohvati()
+                this.dohvati()
+                this.dohvati()
             },
 
             openPanel: function(id) {
-
                 this.resetHolders();
                 this.orderPodaci.clicked = true;
                 for (var i = 0; i < this.orderBazaPodaci.length; i++) {
