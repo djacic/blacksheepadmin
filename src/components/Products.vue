@@ -279,7 +279,6 @@ switchToInsert: function(){
                     this.dohvati()
                     this.dohvati()
                     this.dohvati()
-                    this.formReset()
                 } else {
                     return false;
                 }
@@ -326,13 +325,9 @@ switchToInsert: function(){
               this.errors = [];
               this.forma.checked = [];
               var reName = /^[A-Z]{1}[A-z0-9\s]{1,90}$/;
-              var reDescription = /^[A-z0-9\.\,\-\*\s]{10,100}$/;
               var rePrice = /^[0-9]{1,7}$/;
               if (!reName.test(this.forma.name)) {
                   this.errors.push('Ime nije u dobrom formatu. [Abc]');
-              }
-              if (!reDescription.test(this.forma.description)) {
-                  this.errors.push('Opis nije u dobrom formatu. [min: 10]');
               }
               if (!rePrice.test(this.forma.price)) {
                   this.errors.push('Cena nije u dobrom formatu. [123]');
@@ -365,8 +360,8 @@ switchToInsert: function(){
                   if (document.getElementById('file').files.length == 0) {
                     var formData = new FormData();
                     formData.append('picture', null);
-                    formData.append('brand_id', 4);
-                    formData.append('type_id', this.unos.type_id);
+                    formData.append('brand_id', this.unos.brand_id);
+                    formData.append('type_id', null);
                     formData.append('colors', JSON.stringify(this.unos.checked));
                     formData.append('description', this.unos.description);
                     formData.append('is_active', this.unos.is_active);
@@ -446,7 +441,6 @@ switchToInsert: function(){
                   this.dohvati()
                   this.dohvati()
                   this.dohvati()
-                  this.formReset()
 
             }},
             dohvati: function() {
@@ -591,7 +585,7 @@ preRemove: function(x) {
         special: 0,
         brand_id: 0,
         picture_id: 0,
-        type_id: 0,
+        type_id: null,
         picture: [],
         price: 23,
         colors: [{
