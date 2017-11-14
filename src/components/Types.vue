@@ -159,9 +159,6 @@
                 console.log(this.forma.name);
                 $("#cat").html("");
                 this.errors = [];
-                var reName = /^[A-Z]{1}[A-z,-\s0-9]{1,20}$/;
-                if (!reName.test(this.forma.name)) this.errors.push("Ime tipa nije u dobrom formatu!");
-                else{
                   $.ajax({
                       url: window.base_url+'/categories',
                       type: 'POST',
@@ -178,9 +175,6 @@
                           case 201:
                           $("#cat").html("Tip uspešno unet!").removeClass('nev');
                           break;
-                          case 400:
-                          $("#cat").html("Tip sa istim imenom već postoji!").removeClass('nev');
-                            break;
                           default:
                           $("#err").html("Dogodila se greška - "+ xhr.status).removeClass('nev');
                         }
@@ -191,7 +185,7 @@
                   this.dohvati()
                   this.dohvati()
                   this.formReset()
-                }
+                
 
             }
         },

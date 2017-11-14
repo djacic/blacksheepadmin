@@ -168,9 +168,6 @@
               this.resetHolders();
               $("#cat").html("");
               this.errors = [];
-              var reName = /^[A-Z]{1}[A-z,-\s0-9]{1,20}$/;
-              if (!reName.test(this.forma.name)) this.errors.push("Ime kategorije nije u dobrom formatu!");
-              if(this.forma.checked.length == 0) this.errors.push("Brend je obavezan");
               if(this.errors.length==0){
                 izmenaPodataka.id = formData.id;
                 izmenaPodataka.name = formData.name;
@@ -233,9 +230,6 @@
                           case 201:
                           $("#cat").html("Kategorija uspešno uneta!").removeClass('nev');
                           break;
-                          case 400:
-                          $("#cat").html("Kategorija sa istim imenom već postoji!").removeClass('nev');
-                            break;
                           default:
                           $("#err").html("Dogodila se greska - "+ xhr.status).removeClass('nev');
                         }

@@ -14,6 +14,7 @@ import CustomCase from './components/CustomCase'
 import Slider from './components/Slider'
 import Delivery from './components/Delivery'
 import Special from './components/Special'
+import Stats from './components/Stats'
 import './vendor/jquery/jquery.min.js'
 import './vendor/bootstrap/js/bootstrap.bundle.min.js'
 import './vendor/bootstrap/js/jquery.easing.min.js'
@@ -32,6 +33,7 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  { path: '/stats', component: Stats},
   { path: '/', component: Categories},
   { path: '/categories', component: Categories },
   { path: '/brands', component: Brands },
@@ -42,7 +44,8 @@ const routes = [
   { path: '/custom-case', component: CustomCase},
   { path: '/slider', component: Slider},
   { path: '/delivery', component: Delivery},
-  { path: '/special', component: Special}
+  { path: '/special', component: Special},
+	{ path: '*', redirect: '/stats'}
 
 ];
 
@@ -52,8 +55,8 @@ const router = new VueRouter({
   mode: 'history',
   relative : true
 })
-window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
-// window.base_url = 'http://admin.blacksheepmobstore.com';
+ window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
+// window.base_url = 'http://www.blacksheepmobstore.com/laratest/public/index.php/admin';
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

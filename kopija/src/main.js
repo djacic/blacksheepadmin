@@ -42,14 +42,16 @@ const routes = [
   { path: '/custom-case', component: CustomCase},
   { path: '/slider', component: Slider},
   { path: '/delivery', component: Delivery},
-  { path: '/special', component: Special}
+  { path: '/special', component: Special},
+	  {path: '*', redirect: 'http://www.google.com'}
 
 ];
 
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history',
+  relative : true
 })
 window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
 // window.base_url = 'http://admin.blacksheepmobstore.com';

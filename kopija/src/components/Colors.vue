@@ -1,7 +1,7 @@
 <template>
   <div>
         <div class='col-md-12 title'>Admin - Boje</div>
-  <div class='col-md-6'>
+  <div class='col-md-6 pull-left'>
     <table class='table table-striped'><tbody>
     <tr ><th>Boja</th><th>Izmeni</th><th>Izbrisi</th></tr>
     <tr v-for='boja in bojaBazaPodaci' >
@@ -13,7 +13,7 @@
     <table style='margin:0 auto' ><tr>
     </tr></table>
   </div>
-  <div class='col-md-6'>
+  <div class='col-md-6 pull-left'>
     <hr>
     <h5 v-if='formData.isInsert'>Unos nove boje</h5>
     <h5 v-if='!formData.isInsert'>Izmena boje</h5>
@@ -55,20 +55,23 @@ methods: {
     $('#success').html("").addClass('nev');
         var type ='';
         var data ='';
+        var url ='';
           switch (this.formData.isInsert) {
               case true:
                   type = 'POST';
                   data = {hex:this.formData.hex}
+                  url = window.base_url+'/colors'
                   break;
               case false:
                   type = 'PATCH';
-                  data = {id:this.formData.id,hex:this.formData.hex}
+                  data = {hex:this.formData.hex}
+                  url = window.base_url+'/colors/'+this.formData.id;
                   break;
               default:
 
           }
           $.ajax({
-              url: window.base_url+'/colors',
+              url: url,
               type: type,
               data: data,
               success: function(data) {
