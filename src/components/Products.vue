@@ -17,7 +17,7 @@
         <tr v-for='p in podaci.products' v-if='p.is_active==1'> <!-- v-if='p.category_id == forma.filterCategory' 2badded-->
           <td>{{p.name}}</td>
           <!-- <td v-for='slika in p'><img :src='slika.file' width='50' :alt='slika.alt'/></td> -->
-        <!-- <td><button type='button' class='btn btn-warning' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>-->
+         <td><button type='button' class='btn btn-warning' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
           <td><button type='button' class='btn btn-danger' @click='preRemove(p.id)'><i class='fa fa-remove'></i></button></td>
         </tr>
       </tbody>
@@ -393,7 +393,7 @@ switchToInsert: function(){
 
                   }
                   for (var pair of formData.entries()) {
-    // console.log(pair[0]+ ', ' + pair[1]);
+    console.log(pair[0]+ ', ' + pair[1]);
 }
 // console.log(this.unos.id);
                   // var editData = {
