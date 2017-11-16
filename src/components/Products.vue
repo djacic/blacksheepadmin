@@ -168,7 +168,7 @@ switchToInsert: function(){
             // document.getElementById('file').files = [];
             this.forma.bojanJe = false;
             this.forma.brand_id = 0;
-            this.forma.type_id = null;
+            this.forma.type_id = 0;
           },
             unesi: function() {
                 this.forma.bojanJe ? this.forma.checked = [] : false
@@ -357,7 +357,7 @@ switchToInsert: function(){
                     var formData = new FormData();
                     formData.append('picture', null);
                     formData.append('brand_id', this.unos.brand_id);
-                    formData.append('type_id', 0);
+                    formData.append('type_id', this.unos.type_id);
                     formData.append('colors', JSON.stringify(this.unos.checked));
                     formData.append('description', this.unos.description);
                     formData.append('is_active', this.unos.is_active);
