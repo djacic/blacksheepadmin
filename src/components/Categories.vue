@@ -204,8 +204,6 @@
                 this.resetHolders();
                 $("#cat").html("");
                 this.errors = [];
-                var reName = /^[A-Z]{1}[A-z,-\s0-9]{1,20}$/;
-                if (!reName.test(this.forma.name)) this.errors.push("Ime kategorije nije u dobrom formatu!");
                 if(this.errors.length==0){
                   var data = {
                     name : this.forma.name,

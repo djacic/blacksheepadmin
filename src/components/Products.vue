@@ -1,6 +1,6 @@
 <template>
   <div>
-        <div class='col-md-12 title'>Admin - Proizvodi</div>
+        <div class='col-md-12 title' id='top'>Admin - Proizvodi</div>
   <div class='col-md-6 pull-left'>
     <!-- <div class='form-group col-md-6'><select v-model='forma.filterCategory' class='form-control'><option value=''>Izaberite kategoriju...</option><option v-for='cat in forma.categories' :value='cat.id'>{{ cat.name }}</option></select></div> -->
     <div class='form-group col-md-5'><input type='text' class='form-control' v-model='forma.searchQuery'/></div><div class='col-md-1'><button @click='searchForItem(forma.searchQuery)' class='btn btn-primary btn-xs'><i class='fa fa-search fa-2x'></i></button></div>
@@ -68,7 +68,7 @@
       </tr>
       <tr>
         <td><label for='tip'>Tip:</label></td>
-        <td><select v-model='forma.type_id' class='form-control' id='tip'><option value='null'>Izaberite tip</option><option :value='t.id' v-for='t in forma.type' >{{t.name}}</option></select></td>
+        <td><select v-model='forma.type_id' class='form-control' id='tip'><option value='0'>Izaberite tip</option><option :value='t.id' v-for='t in forma.type' >{{t.name}}</option></select></td>
       </tr>
       <tr>
         <td align='center' colspan='2' v-if='forma.isInsert'><button type='button' @click='unesi' class='btn btn-success'>Unesi</button></td>
@@ -284,6 +284,7 @@ switchToInsert: function(){
                 }
             },
             preEdit: function(x) {
+              location.hash = "#top";
               this.forma.id = x;
                 this.forma.isInsert = false;
                 this.forma.bojanJe = false;
@@ -321,14 +322,9 @@ switchToInsert: function(){
             },
             edit: function() {
               this.unos.id = this.forma.id;
-
               this.errors = [];
               this.forma.checked = [];
-              var reName = /^[A-Z]{1}[A-z0-9\s]{1,90}$/;
               var rePrice = /^[0-9]{1,7}$/;
-              if (!reName.test(this.forma.name)) {
-                  this.errors.push('Ime nije u dobrom formatu. [Abc]');
-              }
               if (!rePrice.test(this.forma.price)) {
                   this.errors.push('Cena nije u dobrom formatu. [123]');
               }
@@ -361,7 +357,7 @@ switchToInsert: function(){
                     var formData = new FormData();
                     formData.append('picture', null);
                     formData.append('brand_id', this.unos.brand_id);
-                    formData.append('type_id', null);
+                    formData.append('type_id', 0);
                     formData.append('colors', JSON.stringify(this.unos.checked));
                     formData.append('description', this.unos.description);
                     formData.append('is_active', this.unos.is_active);
@@ -369,6 +365,7 @@ switchToInsert: function(){
                     formData.append('name', this.unos.name);
                     formData.append('price', this.unos.price);
                     formData.append('special', this.unos.special);
+                    formData.append('_method', 'PATCH');
                   } else {
                     var fileSelect = document.getElementById('file');
                     var files = fileSelect.files;
@@ -384,6 +381,7 @@ switchToInsert: function(){
                       formData.append('name', this.unos.name);
                       formData.append('price', this.unos.price);
                       formData.append('special', this.unos.special);
+                      formData.append('_method', 'PATCH');
 
 
                   }
@@ -418,7 +416,7 @@ switchToInsert: function(){
 
                   $.ajax({
                       url: window.base_url+'/products/'+this.unos.id,
-                      type: 'PATCH',
+                      type: 'POST',
                       dataType: "json",
                       contentType: false,
                       cache: false,
@@ -494,7 +492,7 @@ preRemove: function(x) {
             special: 0,
             brand_id: 1,
             picture_id: 1,
-            type_id: null,
+            type_id: 0,
             brand: [{
                 id: null,
                 name: null
@@ -585,7 +583,7 @@ preRemove: function(x) {
         special: 0,
         brand_id: 0,
         picture_id: 0,
-        type_id: null,
+        type_id: 0,
         picture: [],
         price: 23,
         colors: [{
