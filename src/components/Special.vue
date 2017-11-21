@@ -58,14 +58,32 @@ export default {
       data: special,
       dataType: 'json',
       success: function(data){
-        // self.ucitaj();
+
       },
       error: function(xhr, status, error){
         $('#err').html('Dogodila se greska - '+xhr.status+", poslat [id]: "+x).removeClass('nev');
       }
     });
-    }
+  },
+  ucitaj : function(){
+    var self = this;
+    $.ajax({
+      url: window.base_url+'/special',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){
+        //ucitaj special
+      },
+      error: function(xhr, status, error){
+        $('#err').html('Dogodila se greska - '+xhr.status).removeClass('nev');
+      }
+    });
+  },
+  beforeMount(){
+    this.ucitaj()
   }
+  }
+
 }
 var poklon = {
   poklon1 : 'a',

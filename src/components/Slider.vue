@@ -66,6 +66,7 @@ export default {
         url: window.base_url+'/slider/'+x,
         type: 'PATCH',
         processData: false,
+        cache: false,
         data: formData,
         dataType: 'json',
         success: function(data){
