@@ -55,8 +55,8 @@ const router = new VueRouter({
   mode: 'history',
   relative : true
 })
-  // window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
-window.base_url = 'http://www.blacksheepmobstore.com/laratest/public/index.php/admin';
+   window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
+//window.base_url = 'http://www.blacksheepmobstore.com/laratest/public/index.php/admin';
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

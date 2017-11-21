@@ -40,22 +40,36 @@ export default {
     setData(i){
       switch (i) {
         case 1:
-        window.poklon=this.poklon.poklon1;
+          special = this.poklon.poklon1;
           break;
         case 2:
-        window.poklon=this.poklon.poklon2;
-        break;
-        case 3:
-        window.poklon=this.poklon.poklon1;
-        break;
+            special = this.poklon.poklon2;
+            break;
+        case 1:
+            special = this.poklon.poklon3;
+              break;
         default:
+
       }
+      $.ajax({
+      url: window.base_url+'/special/'+i,
+      type: 'PATCH',
+      processData: false,
+      data: special,
+      dataType: 'json',
+      success: function(data){
+        // self.ucitaj();
+      },
+      error: function(xhr, status, error){
+        $('#err').html('Dogodila se greska - '+xhr.status+", poslat [id]: "+x).removeClass('nev');
+      }
+    });
     }
   }
 }
 var poklon = {
   poklon1 : 'a',
-  poklon2 : '',
-  poklon3 : ''
+  poklon2 : 'b',
+  poklon3 : 'c'
 }
 </script>
