@@ -62,14 +62,16 @@ export default {
         var file = files[0];
         formData.append('picture', file);
         var self = this;
+		for (var pair of formData.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]); 
+}
         $.ajax({
         url: window.base_url+'/slider/'+x,
         type: 'PATCH',
         processData: false,
+		contentType: false,
         cache: false,
-        data: {
-		picture : formData
-		},
+        data: formData,
         dataType: 'json',
         success: function(data){
           // self.ucitaj();
