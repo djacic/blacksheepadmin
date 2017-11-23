@@ -66,7 +66,7 @@ export default {
     console.log(pair[0]+ ', ' + pair[1]); 
 }
         $.ajax({
-        url: window.base_url+'/slider/'+x,
+        url: window.base_url+'/update-slider/'+x,
         type: 'PATCH',
         processData: false,
 		contentType: false,
