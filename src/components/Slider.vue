@@ -67,7 +67,9 @@ export default {
         type: 'PATCH',
         processData: false,
         cache: false,
-        data: formData,
+        data: {
+		picture : formData
+		},
         dataType: 'json',
         success: function(data){
           // self.ucitaj();

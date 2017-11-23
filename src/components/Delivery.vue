@@ -17,7 +17,9 @@ methods :{
     $.ajax({
     url: window.base_url+'/delivery',
     type: 'PATCH',
-    data: this.niz.text,
+    data: {
+	text : this.niz.text
+	},
     dataType: 'json',
     success: function(data){
       
