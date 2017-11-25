@@ -43,7 +43,6 @@ methods: {
       type: 'GET',
       dataType: "json",
       success: function(data) {
-        console.log(data);
         self.bojaBazaPodaci = data.colors;
       },
       error: function(xhr, status, error) {
@@ -88,12 +87,12 @@ methods: {
 
   },
   deleteItem: function(id) {
-    this.formData.id = id;
     $('#feedback').html("").addClass('nev');
     $('#success').html("").addClass('nev');
       $.ajax({
-          url: window.base_url+'/colors/'+this.formData.id,
+          url: window.base_url+'/colors',
           type: 'DELETE',
+          data: id,
           success: function(data) {
               $('#success').html("Uspesno obrisano!").removeClass('nev');
 

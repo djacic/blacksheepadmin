@@ -17,70 +17,71 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Statistika">
-                 <a class="nav-link">
-                 <i class="fa fa-dashboard"></i>
-                 <router-link style='color:#868E96; text-decoration:none' to="/stats">Statistika</router-link>
-                 </a>
-              </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Kategorije">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Statistika">
+                  <a class="nav-link" href="index.html">
+                  <i class="fa fa-fw fa-dashboard"></i>
+                  <span class="nav-link-text">Statistika</span>
+                  </a>
+               </li>
+               <!-- tables moze, login moze, blank moze -->
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/categories">
                   <i class="fa fa-balance-scale"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/categories">Kategorije</router-link>
+                  <span class="nav-link-text">Kategorije</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Brendovi">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/brands">
                   <i class="fa fa-snowflake-o"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/brands">Brendovi</router-link>
+                  <span class="nav-link-text">Brendovi</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tipovi">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/types">
                   <i class="fa fa-hashtag"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/types">Tipovi</router-link>
+                  <span class="nav-link-text">Tipovi</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Proizvodi">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/products">
                   <i class="fa fa-magic"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/products">Proizvodi</router-link>
+                  <span class="nav-link-text">Proizvodi</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Boje">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/colors">
                   <i class="fa fa-check"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/colors">Boje</router-link>
+                  <span class="nav-link-text">Boje</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Porudžbine">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/orders">
                   <i class="fa fa-reorder"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/orders">Porudžbine</router-link>
+                  <span class="nav-link-text">Porudzbine</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Custom">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/custom-case">
                   <i class="fa fa-suitcase"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/custom-case">Custom Case</router-link>
+                  <span class="nav-link-text">Custom Case</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Slajder">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/slider">
                   <i class="fa fa-image"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/slider">Slajder</router-link>
+                  <span class="nav-link-text">Slajder</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dostava">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/delivery">
                   <i class="fa fa-car"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/delivery">Dostava</router-link>
+                  <span class="nav-link-text">Dostava</span>
                   </a>
                </li>
-               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Akcija">
-                  <a class="nav-link">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/special">
                   <i class="fa fa-smile-o"></i>
-                  <router-link style='color:#868E96; text-decoration:none' to="/special">Akcija</router-link>
+                  <span class="nav-link-text">Akcija</span>
                   </a>
                </li>
                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">

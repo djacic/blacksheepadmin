@@ -158,7 +158,7 @@
             potvrdi: function(id) {
                 for (i = 0; i < this.orderBazaPodaci.length; i++) {
                     if (this.orderBazaPodaci[i]['id'] == id) {
-                        this.orderBazaPodaci[i]['status_id'] = 2;
+                        this.orderBazaPodaci[i]['status_id'] = true;
                     }
                 }
             },

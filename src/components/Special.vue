@@ -40,54 +40,22 @@ export default {
     setData(i){
       switch (i) {
         case 1:
-          special = this.poklon.poklon1;
+        window.poklon=this.poklon.poklon1;
           break;
         case 2:
-            special = this.poklon.poklon2;
-            break;
-        case 1:
-            special = this.poklon.poklon3;
-              break;
+        window.poklon=this.poklon.poklon2;
+        break;
+        case 3:
+        window.poklon=this.poklon.poklon1;
+        break;
         default:
-
       }
-      $.ajax({
-      url: window.base_url+'/special/'+i,
-      type: 'PATCH',
-      processData: false,
-      data: special,
-      dataType: 'json',
-      success: function(data){
-
-      },
-      error: function(xhr, status, error){
-        $('#err').html('Dogodila se greska - '+xhr.status+", poslat [id]: "+x).removeClass('nev');
-      }
-    });
-  },
-  ucitaj : function(){
-    var self = this;
-    $.ajax({
-      url: window.base_url+'/special',
-      type: 'GET',
-      dataType: 'json',
-      success: function(data){
-        //ucitaj special
-      },
-      error: function(xhr, status, error){
-        $('#err').html('Dogodila se greska - '+xhr.status).removeClass('nev');
-      }
-    });
-  },
-  beforeMount(){
-    this.ucitaj()
+    }
   }
-  }
-
 }
 var poklon = {
   poklon1 : 'a',
-  poklon2 : 'b',
-  poklon3 : 'c'
+  poklon2 : '',
+  poklon3 : ''
 }
 </script>

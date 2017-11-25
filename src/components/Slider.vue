@@ -27,6 +27,7 @@
       </tbody>
       </table>
       <div id='err' class='alert alert-danger nev'></div>
+      <p>Ovde onChange ide zurka</p>
     </div>
   </div>
 </template>
@@ -41,37 +42,27 @@ export default {
   methods: {
     changeIt(x) {
         var id ='';
-
       switch (x) {
         case 1:
-        var fileSelect = document.getElementById('file');
+          this.files = this.$refs.myFiles.files
           break;
         case 2:
-        var fileSelect = document.getElementById('file2');
-          break;
+          this.files = this.$refs.myFiles2.files
         case 3:
-        var fileSelect = document.getElementById('file3');
-          break;
+          this.files = this.$refs.myFiles3.files
         case 4:
-        var fileSelect = document.getElementById('file4');
-          break;
-        default: break;
+          this.files = this.$refs.myFiles4.files
+        default:
       }
-        var files = fileSelect.files;
-        var formData = new FormData();
-        var file = files[0];
-        formData.append('picture', file);
         var self = this;
-		for (var pair of formData.entries()) {
-    console.log(pair[0]+ ', ' + pair[1]); 
-}
         $.ajax({
-        url: window.base_url+'/update-slider/'+x,
+        url: window.base_url+'/slider',
         type: 'PATCH',
         processData: false,
-		contentType: false,
-        cache: false,
-        data: formData,
+        data: {
+          id : x,
+          img: this.files
+        },
         dataType: 'json',
         success: function(data){
           // self.ucitaj();
