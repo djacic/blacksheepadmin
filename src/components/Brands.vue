@@ -161,9 +161,6 @@
                 console.log(this.forma.name);
                 $("#cat").html("");
                 this.errors = [];
-                var reName = /^[A-Z]{1}[A-z,-\s0-9]{1,20}$/;
-                if (!reName.test(this.forma.name)) this.errors.push("Ime brenda nije u dobrom formatu!");
-                else{
                   $.ajax({
                       url: window.base_url+'/categories',
                       type: 'POST',
@@ -182,10 +179,7 @@
                           break;
                           case 200:
                           $("#cat").html("Brend uspešno unet!").removeClass('nev');
-                          breakl
-                          case 400:
-                          $("#cat").html("Brend sa istim imenom već postoji!").removeClass('nev');
-                            break;
+                          break;
                           default:
                           $("#err").html("Dogodila se greška - "+ xhr.status).removeClass('nev');
                           break;
@@ -197,7 +191,6 @@
                   this.dohvati()
                   this.dohvati()
                   this.formReset()
-                }
 
             }
         },

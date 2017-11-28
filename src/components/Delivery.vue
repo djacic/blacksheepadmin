@@ -14,8 +14,39 @@ export default{
 },
 methods :{
   deliver:function(){
-    console.log(this.niz.text);
-  }
+    $.ajax({
+    url: window.base_url+'/delivery',
+    type: 'PATCH',
+    data: {
+	text : this.niz.text
+	},
+    dataType: 'json',
+    success: function(data){
+      
+    },
+    error: function(xhr, status, error){
+      $('#err').html('Dogodila se greska - '+xhr.status+", poslat [id]: "+x).removeClass('nev');
+    }
+  });
+
+},
+ucitaj : function(){
+  var self = this;
+  $.ajax({
+    url: window.base_url+'/delivery',
+    type: 'GET',
+    dataType: 'json',
+    success: function(data){
+      //ucitaj delivery
+    },
+    error: function(xhr, status, error){
+      $('#err').html('Dogodila se greska - '+xhr.status).removeClass('nev');
+    }
+  });
+},
+beforeMount(){
+  this.ucitaj()
+}
 }
 
 

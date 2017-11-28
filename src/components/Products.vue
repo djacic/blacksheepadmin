@@ -1,6 +1,6 @@
 <template>
   <div>
-        <div class='col-md-12 title'>Admin - Proizvodi</div>
+        <div class='col-md-12 title' id='top'>Admin - Proizvodi</div>
   <div class='col-md-6 pull-left'>
     <!-- <div class='form-group col-md-6'><select v-model='forma.filterCategory' class='form-control'><option value=''>Izaberite kategoriju...</option><option v-for='cat in forma.categories' :value='cat.id'>{{ cat.name }}</option></select></div> -->
     <div class='form-group col-md-5'><input type='text' class='form-control' v-model='forma.searchQuery'/></div><div class='col-md-1'><button @click='searchForItem(forma.searchQuery)' class='btn btn-primary btn-xs'><i class='fa fa-search fa-2x'></i></button></div>
@@ -9,7 +9,7 @@
         <tr v-if='forma.filterCategory'>
         <th>Naziv</th>
         <!-- <th>Slika</th> -->
-        <th>Izmeni</th>
+        <!-- <th>Izmeni</th> -->
         <th>Obrisi</th>
       </tr>
       </thead>
@@ -17,7 +17,7 @@
         <tr v-for='p in podaci.products' v-if='p.is_active==1'> <!-- v-if='p.category_id == forma.filterCategory' 2badded-->
           <td>{{p.name}}</td>
           <!-- <td v-for='slika in p'><img :src='slika.file' width='50' :alt='slika.alt'/></td> -->
-          <td><button type='button' class='btn btn-warning' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
+         <td><button type='button' class='btn btn-warning' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
           <td><button type='button' class='btn btn-danger' @click='preRemove(p.id)'><i class='fa fa-remove'></i></button></td>
         </tr>
       </tbody>
@@ -57,11 +57,9 @@
       <tr v-if='forma.bojanJe'>
         <td>Izaberi:</td>
         <td>
-          <table>
-            <tr>
-          <td v-for='c in forma.dbcolors'><label class='label-for-check' v-bind:style={background:c.hex}><input type='checkbox' name='chooseColor' v-model='c.checked' :value='c.id' :id='c.id' class='form-control chbWidth  check-with-label'/></label></td>
-        </tr>
-      </table>
+
+          <div v-for='c in forma.dbcolors'><label class='label-for-check' v-bind:style={background:c.hex}><input type='checkbox' name='chooseColor' v-model='c.checked' :value='c.id' :id='c.id' class='form-control chbWidth  check-with-label'/></label></div>
+
         </td>
       </tr>
       <tr>
@@ -70,7 +68,7 @@
       </tr>
       <tr>
         <td><label for='tip'>Tip:</label></td>
-        <td><select v-model='forma.type_id' class='form-control' id='tip'><option value='null'>Izaberite tip</option><option :value='t.id' v-for='t in forma.type' >{{t.name}}</option></select></td>
+        <td><select v-model='forma.type_id' class='form-control' id='tip'><option value='0'>Izaberite tip</option><option :value='t.id' v-for='t in forma.type' >{{t.name}}</option></select></td>
       </tr>
       <tr>
         <td align='center' colspan='2' v-if='forma.isInsert'><button type='button' @click='unesi' class='btn btn-success'>Unesi</button></td>
@@ -128,7 +126,7 @@ switchToInsert: function(){
               type: 'GET',
               dataType: "json",
               success: function(data) {
-                console.log(data);
+
                   formData.categories = data.categories;
               },
               error: function(xhr, status, error) {
@@ -175,15 +173,8 @@ switchToInsert: function(){
             unesi: function() {
                 this.forma.bojanJe ? this.forma.checked = [] : false
                 this.errors = [];
-                var reName = /^[A-Z]{1}[A-z0-9\s]{1,90}$/;
-                var reDescription = /^[A-z0-9\.\,\-\*\s]{10,100}$/;
-                var rePrice = /^[0-9]{1,7}$/;
-                if (!reName.test(this.forma.name)) {
-                    this.errors.push('Ime nije u dobrom formatu. [Abc]');
-                }
-                if (!reDescription.test(this.forma.description)) {
-                    this.errors.push('Opis nije u dobrom formatu. [min: 10]');
-                }
+                this.forma.checked = [];
+                var rePrice = /^[0-9]{1,10}$/;
                 if (!rePrice.test(this.forma.price)) {
                     this.errors.push('Cena nije u dobrom formatu. [123]');
                 }
@@ -223,7 +214,7 @@ switchToInsert: function(){
                     if (document.getElementById('file').files.length == 0) {
                       var formData = new FormData();
                       formData.append('picture', null);
-                      formData.append('brand_id', 4);
+                      formData.append('brand_id', this.unos.brand_id);
                       formData.append('type_id', this.unos.type_id);
                       formData.append('colors', JSON.stringify(this.unos.checked));
                       formData.append('description', this.unos.description);
@@ -247,8 +238,6 @@ switchToInsert: function(){
                         formData.append('name', this.unos.name);
                         formData.append('price', this.unos.price);
                         formData.append('special', this.unos.special);
-
-
                     }
 
 
@@ -281,9 +270,6 @@ switchToInsert: function(){
                                 case 201:
                                     $("#feedback").html("Proizvod je uspešno unet!");
                                     break;
-                                case 400:
-                                    $("#feedback").html("Proizvod sa istim imenom već postoji!");
-                                    break;
                                 default:
                                     $("#feedback").html("Dogodila se greska - " + xhr.status);
                                     break;
@@ -293,12 +279,12 @@ switchToInsert: function(){
                     this.dohvati()
                     this.dohvati()
                     this.dohvati()
-                    this.formReset()
                 } else {
                     return false;
                 }
             },
             preEdit: function(x) {
+              location.hash = "#top";
               this.forma.id = x;
                 this.forma.isInsert = false;
                 this.forma.bojanJe = false;
@@ -337,15 +323,8 @@ switchToInsert: function(){
             edit: function() {
               this.unos.id = this.forma.id;
               this.errors = [];
-              var reName = /^[A-Z]{1}[A-z0-9\s]{1,90}$/;
-              var reDescription = /^[A-z0-9\.\,\-\*\s]{10,100}$/;
+              this.forma.checked = [];
               var rePrice = /^[0-9]{1,7}$/;
-              if (!reName.test(this.forma.name)) {
-                  this.errors.push('Ime nije u dobrom formatu. [Abc]');
-              }
-              if (!reDescription.test(this.forma.description)) {
-                  this.errors.push('Opis nije u dobrom formatu. [min: 10]');
-              }
               if (!rePrice.test(this.forma.price)) {
                   this.errors.push('Cena nije u dobrom formatu. [123]');
               }
@@ -370,18 +349,6 @@ switchToInsert: function(){
                   this.unos.is_active = 1; //Postaje aktivan
                   if (this.forma.is_offer) this.unos.is_offer = 1;
                   this.unos.price = this.forma.price;
-                  var fileInput = document.getElementById('file');
-                  if (document.getElementById('file').files.length == 0) {
-                      this.unos.picture=null;
-                    } else {
-                      var fileSelect = document.getElementById('file');
-                      var files = fileSelect.files;
-                      var formData = new FormData();
-                      var file = files[0];
-                        formData.append('photo', file, file.name);
-                        this.unos.picture = formData;
-                        console.log(this.unos.picture);
-                    }
                   this.unos.brand_id = this.forma.brand_id;
                   if (this.forma.special) this.unos.special = 1;
                   if (this.forma.type_id != null) this.unos.type_id = this.forma.type_id;
@@ -389,7 +356,7 @@ switchToInsert: function(){
                   if (document.getElementById('file').files.length == 0) {
                     var formData = new FormData();
                     formData.append('picture', null);
-                    formData.append('brand_id', 4);
+                    formData.append('brand_id', this.unos.brand_id);
                     formData.append('type_id', this.unos.type_id);
                     formData.append('colors', JSON.stringify(this.unos.checked));
                     formData.append('description', this.unos.description);
@@ -398,6 +365,7 @@ switchToInsert: function(){
                     formData.append('name', this.unos.name);
                     formData.append('price', this.unos.price);
                     formData.append('special', this.unos.special);
+                    formData.append('_method', 'PATCH');
                   } else {
                     var fileSelect = document.getElementById('file');
                     var files = fileSelect.files;
@@ -413,9 +381,14 @@ switchToInsert: function(){
                       formData.append('name', this.unos.name);
                       formData.append('price', this.unos.price);
                       formData.append('special', this.unos.special);
+                      formData.append('_method', 'PATCH');
 
 
                   }
+                  for (var pair of formData.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]);
+}
+// console.log(this.unos.id);
                   // var editData = {
                   //   brand_id : this.unos.brand_id,
                   //   type_id : this.unos.type_id,
@@ -440,26 +413,15 @@ switchToInsert: function(){
                   //   special: this.unos.special
                   // }
                   // console.log(data);
-                  console.log(this.unos.checked);
+
                   $.ajax({
                       url: window.base_url+'/products/'+this.unos.id,
-                      type: 'PATCH',
+                      type: 'POST',
                       dataType: "json",
                       contentType: false,
                       cache: false,
                       processData:false,
-                      data: {
-                        brand_id : this.unos.brand_id,
-                        type_id : this.unos.type_id,
-                        colors : this.unos.checked,
-                        description: this.unos.description,
-                        picture: this.unos.picture,
-                        is_active: this.unos.is_active,
-                        is_offer: this.unos.is_offer,
-                        name: this.unos.name,
-                        price: this.unos.price,
-                        special: this.unos.special
-                      },
+                      data: formData,
                       success: function(data) {
                           $("#feedback").html("Proizvod je uspešno izmenjen!");
                       },
@@ -467,9 +429,6 @@ switchToInsert: function(){
                           switch (xhr.status) {
                               case 201:
                                   $("#feedback").html("Proizvod je uspešno izmenjen!");
-                                  break;
-                              case 400:
-                                  $("#feedback").html("Proizvod sa istim imenom već postoji!");
                                   break;
                               default:
                                   $("#feedback").html("Dogodila se greska - " + xhr.status);
@@ -480,7 +439,6 @@ switchToInsert: function(){
                   this.dohvati()
                   this.dohvati()
                   this.dohvati()
-                  this.formReset()
 
             }},
             dohvati: function() {
@@ -491,7 +449,7 @@ switchToInsert: function(){
         success: function(data) {
             sviPodaci.products = data.products;
             window.kopija = sviPodaci.products.slice(0);
-            console.log(data);
+
         },
         error: function(xhr, status, error) {
             $("#feedback").html("Greska u dohvatanju podataka iz baze!");
@@ -534,7 +492,7 @@ preRemove: function(x) {
             special: 0,
             brand_id: 1,
             picture_id: 1,
-            type_id: null,
+            type_id: 0,
             brand: [{
                 id: null,
                 name: null

@@ -20,6 +20,7 @@ import CustomCase from './components/CustomCase'
 import Slider from './components/Slider'
 import Delivery from './components/Delivery'
 import Special from './components/Special'
+import Stats from './components/Stats'
 /* ROUTING */
 
 
@@ -37,7 +38,8 @@ export default {
     CustomCase,
     Slider,
     Delivery,
-    Special
+    Special,
+    Stats
   }
 }
 </script>

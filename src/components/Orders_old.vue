@@ -1,13 +1,13 @@
 <template lang="html">
   <div>
         <div class='col-md-12 title'>Admin - Porudžbine</div>
-
+  <div class='container'>
     <div class='col-md-2' style='font-size:15px; padding-top:5px'>Filter:</div>
     <div class='col-md-5' style='margin-bottom:15px'><select class=' form-control' v-model='orderPodaci.filter' v-on:change='reset'><option v-bind:value='1'>Neobradjene</option><option v-bind:value='2'>Poslate</option><option v-bind:value='3'>Odbijene</option></select></div>
     <div class='col-md-5' style='padding-top:5px'>Ukupno porudzbina: {{orderBazaPodaci.length}}</div>
-
-
-          <div class='col-md-3 pull-left'>
+  </div>
+          <div class='container'>
+          <div class='col-md-3'>
           <table class='table table-bordered table-hover'><tbody>
           <tr>
             <th>ID</th>
@@ -24,7 +24,7 @@
           </tbody>
         </table>
       </div>
-          <div class='col-md-9 pull-left' v-if='orderPodaci.clicked'>
+          <div class='col-md-9' v-if='orderPodaci.clicked'>
           <table class='table table-bordered'><tbody>
           <tr>
           <td>ID</td>
@@ -48,7 +48,7 @@
           </tr>
           <tr>
           <td>Cena</td>
-          <td v-if='orderPodaci.clicked'>{{orderPodaci.products.price}}</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.price}}</td>
           </tr>
           <tr>
           <td>Status</td>
@@ -75,14 +75,14 @@
           <td v-if='orderPodaci.clicked'>{{orderPodaci.user.postNumber}}</td>
           </tr>
           <tr>
-          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' @click='posalji(2)'>Potvrdi</button>&nbsp;<button class='btn btn-danger' @click='posalji(3)'>Otkazi</button></td>
+          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' @click='posalji(2)'>Potvrdi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button></td>
           </tr>
           </tbody></table>
           </div>
-          <div class='col-md-9 pull-left' v-else></div>
+          <div class='col-md-9' v-else></div>
           <div id='feedback' class='alert alert-success nev'></div>
           <div id='err' class='alert alert-danger nev'></div>
-
+          </div>
           </div>
 
 </template>
@@ -90,6 +90,7 @@
     // import '../js/ajax.js'
     export default {
         data: function() {
+            console.log(window.poklon);
             return {
                 orderBazaPodaci: orderDbData,
                 orderPodaci: orderData
@@ -101,6 +102,8 @@
             },
             posalji: function(i) {
                 this.resetHolders();
+
+                console.log(data);
                 switch (i) {
                     case 2:
                         var status_id = 2;
@@ -114,7 +117,6 @@
                     removedItems: this.orderPodaci.cancel,
                     statusId : status_id
                 }
-                console.log(data);
                 $.ajax({
                     url: window.base_url+'/orders/'+this.orderPodaci.id,
                     type: 'PATCH',
@@ -122,18 +124,16 @@
                     data: data,
                     success: function(data) {
                         $('#feedback').html('Uspešno izvršeno!');
+                        console.log(data);
                     },
                     error: function(xhr, status, error) {
-                        $("#err").html("Dogodila se greska"+xhr.status).removeClass('nev');
+                        $("#err").html("Dogodila se greska").removeClass('nev');
                     }
                 });
-                this.dohvati()
-                this.dohvati()
-                this.dohvati()
             },
 
             openPanel: function(id) {
-				var sum = 0;
+              console.log(this.orderPodaci.user);
                 this.resetHolders();
                 this.orderPodaci.clicked = true;
                 for (var i = 0; i < this.orderBazaPodaci.length; i++) {
@@ -142,10 +142,7 @@
                         this.orderPodaci.user.firstName = this.orderBazaPodaci[i].user.firstName;
                         this.orderPodaci.user.lastName = this.orderBazaPodaci[i].user.lastName;
                         this.orderPodaci.products = this.orderBazaPodaci[i]['products'];
-						for(var k = 0; k< this.orderBazaPodaci[i].products.length ; k++){
-						sum+=this.orderBazaPodaci[i].products[k].prices[k].price
-						}
-						this.orderPodaci.products.price = sum;
+                        this.orderPodaci.price = this.orderBazaPodaci[i]['price'];
                         this.orderPodaci.status_id = this.orderBazaPodaci[i]['status_id'];
                         this.orderPodaci.created_at = this.orderBazaPodaci[i]['created_at'];
                         this.orderPodaci.user.address = this.orderBazaPodaci[i].user.address;
@@ -162,7 +159,7 @@
             potvrdi: function(id) {
                 for (i = 0; i < this.orderBazaPodaci.length; i++) {
                     if (this.orderBazaPodaci[i]['id'] == id) {
-                        this.orderBazaPodaci[i]['status_id'] = 2;
+                        this.orderBazaPodaci[i]['status_id'] = true;
                     }
                 }
             },
@@ -194,9 +191,7 @@
             id: 1,
             name: 'Proizvod 1',
             amount: 3,
-            prices:[{
-			price : 200
-			}],
+            price: 200,
             pivot:{
               amount : 5,
               product_id : 1,
@@ -213,9 +208,7 @@
           city: "Rsn",
           postNumber:"11500"
         },
-            prices:[{
-			price : 200
-			}],
+        price: "2358",
         created_at: new Date().toLocaleDateString(),
         status_id: '0',
         filter: '1',
@@ -228,45 +221,35 @@
             id: 1,
             name: 'Proizvod 1',
             amount: 3,
-            prices:[{
-			price : 200
-			}],
+            price: 200,
             pivot:{
               amount : 5,
               product_id : 1,
               order_id : 1,
               created_at : new Date().toLocaleDateString()
-            },
-			price:200
+            }
         }, {
             id: 2,
             name: 'Proizvod 2',
             amount: 1,
-            prices:[{
-			price : 200
-			}],
+            price: 200,
             pivot:{
               amount : 5,
               product_id : 1,
               order_id : 1,
               created_at : new Date().toLocaleDateString()
-            },
-			price: 200
-			
+            }
         }, {
             id: 3,
             name: 'Proizvod 3',
             amount: 7,
-            prices:[{
-			price : 200
-			}],
+            price: 200,
             pivot:{
               amount : 5,
               product_id : 1,
               order_id : 1,
               created_at : new Date().toLocaleDateString()
-            },
-			price : 200
+            }
         }],
         user:{
           firstName : "Bora",
@@ -277,6 +260,7 @@
           city: "Rsn",
           postNumber:"11500"
         },
+        price: "500",
         status_id: 1,
         created_at: new Date().toLocaleDateString(),
     }];
